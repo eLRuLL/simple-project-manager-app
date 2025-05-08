@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+    command: npm run dev
+
+  # Note: For the mobile app, we don't need a Docker container
+  # as Expo CLI handles the development server and device connections
+  # You'll run the mobile app directly using:
+  # cd mobile && npx expo start
+
+networks:
+  default:
+    name: app-network
